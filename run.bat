@@ -1,0 +1,1 @@
+start chrome --incognito "D:\Projects\JS\RobotProject\index.html"
