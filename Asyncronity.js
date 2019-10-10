@@ -5,7 +5,7 @@
 }
 
 //Promise
-{
+() => {
     let fifteen = Promise.resolve(15);
     fifteen.then(value => console.log(`Got ${value}`));
 }
@@ -79,7 +79,7 @@
 }
 
 //async, await
-{
+() => {
     async function getUser() {
         return { id: 1 }
     }
@@ -113,4 +113,56 @@
     }
 
     main();
+}
+
+{
+    function makeRangeIterator(start = 0, end = Infinity, step = 1) {
+        let nextIndex = start;
+        let iterationCount = 0;
+
+        const rangeIterator = {
+            next: function () {
+                let result;
+                if (nextIndex < end) {
+                    result = { value: nextIndex, done: false }
+                    nextIndex += step;
+                    iterationCount++;
+                    return result;
+                }
+                return { value: iterationCount,  done: true }
+            }
+        };
+        return rangeIterator;
+    }
+
+    let it = makeRangeIterator(1, 10, 2);
+
+    let result = it.next();
+    while (!result.done) {
+        console.log(result);
+        result = it.next();
+    }
+
+    function* makeRangeIterator2(start = 0, end = 100, step = 1) {
+        for (let i = start; i < end; i += step) {
+            yield i;
+        }
+    }
+
+    console.log('Iterated over sequence of size ', result);
+}
+
+//yield 
+() => {
+    function* foo(x) {
+        while (true) {
+            x = x * 2;
+            yield x;
+        }
+    }
+
+    var g = foo(2);
+    g.next(); // -> 4
+    g.next(); // -> 8
+    g.next(); // -> 16
 }
